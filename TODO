@@ -1,0 +1,7 @@
+future
+- GROUP BY for model.php find()
+- IN support for model.php find()
+- database migrations: schema for table creation and changes
+
+- Possibly keep track of actual changes (that then need to be saved,) made to a has_many edit... so that there aren't a million inserts and updates to database each time.  Though, this might just be a job for Javascript.
+- Directory separator for Windows/*nix...

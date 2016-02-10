@@ -1,0 +1,102 @@
+#!/usr/local/bin/php
+<?php
+$options = getopt("m:c:v:");
+$template = 'ideal/build-data/templates/default/';
+$single_generation = false;
+if (!isset($options['m']) && !isset($options['c']) && !isset($options['v'])) {
+  # build name chosen?
+  if (isset($argv[1])) {
+    if (!isset($options['m']))
+      $model_name = $argv[1];
+    if (!isset($options['c']))
+      $controller_name = $argv[1];
+    if (!isset($options['v']))
+      $view_folder_name = $argv[1];
+    # template chosen?
+    if (isset($argv[2])) {
+      $template = 'ideal/build-data/templates/' . preg_replace("/\W+/", "", $argv[2]) . '/';
+    }
+  } else {
+    die("need a name of what to build\n");
+  }
+} else {
+  $single_generation = true;
+  if (isset($options['m']))
+    $model_name = strtolower($options['m']);
+  if (isset($options['c']))
+    $controller_name = strtolower($options['c']);
+  if (isset($options['v']))
+    $view_folder_name = strtolower($options['v']);
+}
+
+if (!$single_generation) {
+  require_once('inflection.php');
+  echo "checking inflection rules...\n";
+  $matched_rule = false;
+  foreach ($rules as $k => $v) {
+    if (preg_match($k, $controller_name)) {
+      if (isset($controller_name))
+        $controller_name = preg_replace($k, $v, $controller_name);
+      if (isset($view_folder_name))
+        $view_folder_name = preg_replace($k, $v, $controller_name);
+      $matched_rule = true;
+    }
+  }
+
+  if (!$matched_rule) {
+    if (isset($controller_name))
+      $controller_name = $controller_name . 's';
+    if (isset($view_folder_name))
+      $view_folder_name = $view_folder_name . 's';
+  }
+}
+
+$search = array('__MODEL_NAME__', '__MODEL_NAME_UPPER_CASE__', '__MODEL_NAME_LOWER_CASE__', '__CONTROLLER_NAME__', '__CONTROLLER_NAME_UPPER_CASE__', '__CONTROLLER_NAME_LOWER_CASE__', '__TABLE_NAME__');
+$replace = array(ucfirst($model_name), ucwords($model_name), strtolower($model_name), $controller_name, ucwords($controller_name), strtolower($controller_name), $view_folder_name);
+
+if ($model_name) {
+  $source = $template . 'model.php';
+  $file = file_get_contents($source);
+  $file = str_replace($search, $replace, $file);
+  $destination = 'app/models/' . $model_name . '.php';
+  file_put_contents($destination, $file);
+  echo "creating $model_name model in $destination\n";
+}
+
+if ($controller_name) {
+  $source = $template . 'controller.php';
+  $file = file_get_contents($source);
+  $file = str_replace($search, $replace, $file);
+  $destination = 'app/controllers/' . $controller_name . '.php';
+  file_put_contents($destination, $file);
+  echo "creating $controller_name controller in $destination\n";
+}
+
+if ($view_folder_name) {
+  $destination_folder = 'app/views/' . $view_folder_name;
+  if (!is_dir($destination_folder)) {
+    mkdir($destination_folder, 0700);
+    echo "creating $view_folder_name view folder in $destination_folder\n";
+  } else {
+    echo "$view_folder_name view folder already exists\n";
+  }
+  
+  $source_dir = $template . 'views';
+  if (is_dir($source_dir)) {
+    $view_files_a = scandir($source_dir);
+    if (!empty($view_files_a)) {
+      foreach ($view_files_a as $k => $v) {
+        if ($v != '.' && $v != '..') {
+          $source = $template . 'views' . '/' . $v;
+          $file = file_get_contents($source);
+          $file = str_replace($search, $replace, $file);
+          $filename = str_replace($search, $replace, $v);
+          $destination = $destination_folder . '/' . $filename;
+          file_put_contents($destination, $file);
+          echo "creating $view_name view in $destination\n";
+        }
+      }
+    }
+  }
+}
+?>

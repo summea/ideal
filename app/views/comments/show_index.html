@@ -1,0 +1,8 @@
+<a href="<?php echo $BASEURL . 'comments/create_comment' ?>">+ new comment</a><br /><br />
+
+Here is a list of comments:
+<ul>
+<?php foreach ($comments as $k => $v) : ?>
+  <li><a href="<?php echo $BASEURL . 'comments/update_comment/' . $v['id'] ?>"><?php echo $v['subject'] ?></a> | <a href="<?php echo $BASEURL . 'comments/update_comment/' . $v['id'] ?>">update</a> | <a href="<?php echo $BASEURL . 'comments/read_comment/' . $v['id'] ?>">read</a> | <a href="<?php echo $BASEURL . 'comments/delete_comment/' . $v['id'] ?>">delete</a></li>
+<?php endforeach ?>
+</ul>

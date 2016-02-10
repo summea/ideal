@@ -1,0 +1,25 @@
+<h3>Show Entry</h3>
+<label>Subject: </label>
+<?php echo $entry['subject'] ?><br />
+<label>Body: </label>
+<?php echo $entry['body'] ?><br />
+
+<h3>Related Comments:</h3>
+<ul>
+<?php foreach ($entry['comments'] as $k => $v) : ?>
+<li>
+<b><?php echo $v['subject'] ?></b><br />
+<?php echo $v['body'] ?>
+</li>
+<?php endforeach; ?>
+</ul>
+
+<h3>Related Crankies:</h3>
+<ul>
+<?php foreach ($entry['crankies'] as $k => $v) : ?>
+<li>
+<b><?php echo $v['subject'] ?></b><br />
+<?php echo $v['body'] ?>
+</li>
+<?php endforeach; ?>
+</ul>

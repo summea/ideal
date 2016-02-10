@@ -1,0 +1,13 @@
+Hello, <?php echo $name ?>,<br />
+This is show_index; how may I help you?<br /><br />
+
+<a href="<?php echo $BASEURL . 'entries/create_entry' ?>">+ new entry</a><br /><br />
+
+Here is a list of entries:
+<ul>
+<?php foreach ($entries as $k => $v) : ?>
+  <?php if ($v) : ?>
+  <li><a href="<?php echo $BASEURL . 'entries/edit_entry/' . $v['id'] ?>"><?php echo $v['subject'] ?></a> | <a href="<?php echo $BASEURL . 'entries/show_entry/' . $v['id'] ?>">show</a> | <a href="<?php echo $BASEURL . 'entries/delete_entry/' . $v['id'] ?>">delete</a></li>
+  <?php endif ?>
+<?php endforeach ?>
+</ul>

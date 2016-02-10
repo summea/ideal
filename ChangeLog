@@ -1,0 +1,236 @@
+2012-02-24  summea  <>
+
+  * VERSION: Bumped version to 0.1.4.
+
+  * model.php: Added query() for general SQL queries.
+  Usage: $this->query($query, $values, $multi_level_array_results)
+  $multi_level_array_results is true by default; if only a single row
+  should be returned from the query(), set $multi_level_array_results
+  to false.
+
+  * model.php: Added a-z/z-a support for 'desc' option in find().
+  Usage: $this->find('all', array('desc' => 'z-a'))
+  Note: if 'desc' option is not set, default is ASC order.
+
+2012-02-21  summea  <>
+
+  * VERSION: Bumped version to 0.1.3.
+
+  * model.php: Added saveRelated().  This method breaks down $_POST data
+  according to the table, column name, and id (set from a given view.)
+
+  * model.php: Added `keep = array()` option in $options array for find().
+  This acts as a way to limit what related tables are actually called when
+  tables are related to a particular model.  When array() is assigned,
+  (but just left empty,) no tables are attached to the find() results.
+  # Usage:
+  # 'keep' => array('comments','crankies')  # keep comments and crankies
+  # 'keep' => array('comments')             # keep comments
+  # 'keep' => array('crankies')             # keep crankies
+  # 'keep' => array()                       # keep nothing (except main results)
+
+2012-02-17  summea  <>
+
+  * VERSION: Bumped version to 0.1.2.
+
+  * model.php: Added PDO try/catch for errors (to try to somewhat protect
+  sensitive data.)
+
+  * model.php: Added ability to use more complex conditions in find():
+  # simple JOIN example
+  # ...
+  'table' => array('comments', 'entries'),
+  'fields' => '*',
+  'conditions' => array('comments.entry_id = entries.id and',
+    array('entries.id' => digits($id)))
+
+  * model.php: Added 'all' selector to find().
+
+  * model.php: Added public $related member variable for models.  Usage:
+  public $related = array(
+    'has_many' => array(
+      'comments' => 'entry_id',
+      'crankies' => 'entry_id'
+    )
+  );
+
+  * model.php: Added findRelated().  Now can find (has_many) related tables that
+  are set in models.  Output looks like this:
+  Array
+  (
+      [comments] => Array
+          (
+              [0] => Array
+                  (
+                      [id] => 1
+                      [0] => 1
+                      [subject] => first comment
+                      [1] => first comment
+                      [body] => comment body
+                      [2] => comment body
+                      [entry_id] => 1
+                      [3] => 1
+                  )
+          )
+  )
+
+2012-02-16  summea  <>
+
+  * VERSION: Bumped version to 0.1.1.
+
+  * model.php: Fixed returned rows bug for rows that only have one result,
+  by checking returned rows array for $rows[1] key (sqlite) and 
+  $q->rowCount() (mysql).
+
+  * build.php: Added model/controller/view folder/template generator called
+  "build".
+  Usage:
+    ./build -m model_name
+    ./build -c controller_name
+    ./build -v view_folder_name
+    ./build crazy crud [crazy is name of new MVC set] [crud is CRUD template]
+
+  * conf.php: Added $DEBUG_MODE.  Turns on some output debugging if desired.
+
+  * inflection.php: Added for build.php (for deciding on MVC name endings.).
+
+  * clean.php: Added for simple cleanup functions (data validation.)
+
+2012-02-15  summea  <>
+
+  * VERSION: Bumped version to 0.1.0.
+
+  * index.php: Now using throw/catch for exceptions.
+
+  * model.php: Added execute() for general SQL statements.  Still uses prepared
+  statements, though, if desired.
+
+  * ideal.php: Added view caching functionality to render().
+
+  * index.php: Added view caching check (before controllers are called, etc.)
+
+  * conf.php: Added $CACHE_VIEW_EXPIRE setting for a general time to expire
+  cached views.
+
+  * api: Updated API docs.
+
+2012-02-14  summea  <>
+
+  * VERSION: Bumped version to 0.0.9.
+
+  * index.php: Added support for special routes 
+  (i.e. www.example.com/favorite can link to a specific controller and action.)
+
+  * docs: Added more chapters to The Ideal Book.
+
+2012-02-12  summea  <>
+
+  * VERSION: Bumped version to 0.0.8.
+
+  * model.php: Moved cleanQuery() from ideal.php to model.php.
+
+  * model.php: Added SQLite support.
+
+  * docs: Got The Ideal Book documentation started.
+
+2012-02-11  summea  <>
+
+  * VERSION: Bumped version to 0.0.7.
+
+  * ideal.php: Added cleanQuery() method for taking out non-word characters 
+  from specific parts of SQL query string.
+
+  * model.php: Added non-PDO prepared statement parts check using 
+  $this->cleanQuery() method.
+
+  * controllers: Verified ability to choose specific layout (or no layout 
+  at all) in individual controller methods.
+
+  * index.php: Added before_response($action) check that can be set in 
+  individual controllers.
+
+  * index.php: Added after_response($action) check that can be set in 
+  controllers.
+
+  * controllers: Verified ability to bypass before_response() and
+  after_response() for individual controller methods.
+
+  * documentation: Added wiki pages for documentation at:
+  https://github.com/summea/ideal/wiki
+
+2012-02-10  summea  <>
+
+  * VERSION: Bumped version to 0.0.6.
+
+  * index.php: Added checking for controller and action.
+
+  * ideal.php: Added checking for layout and view in render().
+
+  * model.php: Added ORDER BY, LIMIT, and DESC options to find().
+  Can be used like this: 'order' => '', 'limit' => '', 'desc' => ''
+
+2012-02-10  summea  <>
+
+  * VERSION: Bumped version to 0.0.5.
+
+  * model.php: Verified that save() can be used to create row in database table.
+
+  * model.php: Added delete().
+  Can be used like this: $this->ModelName->delete().
+
+  * ideal.php: Added dialog() method for "flash success/fail messages".
+  Using $_SESSION variable to pass the message along, for now.
+
+2012-02-09  summea  <>
+
+  * VERSION: Bumped version to 0.0.4.
+
+  * model.php: Renamed $_POST to be more generic in save().
+
+  * model.php: save() $options array is no longer required.
+
+  * model.php: Default table (set in model) can now be set.
+  Can set table like this: public $table = 'table_name' in model.
+
+  * ideal.php: Added layouts (set in controller) functionality in render().
+  Can set layout like this: public $layout = 'layout_name' in controller. 
+
+2012-02-09  summea  <>
+
+  * VERSION: Bumped version to 0.0.3.
+
+  * ideal.php: Added baseURL().
+
+  * ideal.php: Added baseURLSubdirectory().
+
+  * routes.php: Added routes and connected routes in index.php.
+
+  * model.php: Created model.php and moved model-related methods from ideal.php.
+  Also, model calls now work like this, in a given controller:
+  $this->ModelName->method()
+
+  * ideal.php: Now dynamically creates model in constructor.
+
+2012-02-08  summea  <>
+
+  * VERSION: Bumped version to 0.0.2.
+
+  * index.php: Using parse_url() and parse_str() for URL query string.
+
+  * ideal.php: Added urlParam() to get url query string parts.
+  
+  * index.php: Added support for nice URLs with routes.php and .htaccess.
+
+  * ideal.php: Added save().
+
+  * ideal.php: Added redirect().
+
+2012-02-07  summea  <>
+
+  * VERSION: Bumped version to 0.0.1.
+
+  * ideal.php: Started project.
+
+  * ideal.php: Added find method.
+
+  * ideal.php: Simpler variable array name when only fetching one result (find).

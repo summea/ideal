@@ -1,0 +1,9 @@
+<h3>Update Comment</h3>
+<form method="post" action="<?php echo $action ?>">
+<label>Subject</label><br />
+<input type="text" name="subject" value="<?php echo $comment['subject'] ?>" /><br />
+<label>Body</label><br />
+<textarea name="body"><?php echo $comment['body'] ?></textarea><br />
+<input type="hidden" name="id" value="<?php echo $comment['id'] ?>" />
+<input type="submit" />
+</form>

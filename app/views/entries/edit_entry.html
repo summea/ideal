@@ -1,0 +1,46 @@
+<h3>Edit Entry</h3>
+<form method="post" action="<?php echo $action ?>">
+<label>Subject</label><br />
+<input type="text" name="subject" value="<?php echo $entry['subject'] ?>" /><br />
+<label>Body</label><br />
+<textarea name="body"><?php echo $entry['body'] ?></textarea><br />
+<input type="hidden" name="id" value="<?php echo $entry['id'] ?>" />
+
+<h2>Comments</h2>
+<?php foreach($entry['comments'] as $comment) : ?>
+<label>Subject</label><br />
+<input type="text" name="comments/subject/<?php echo $comment['id'] ?>" value="<?php echo $comment['subject'] ?>" /><br />
+<label>Body</label><br />
+<textarea name="comments/body/<?php echo $comment['id'] ?>"><?php echo $comment['body'] ?></textarea><br />
+<input type="hidden" name="comments/id/<?php echo $comment['id'] ?>"" value="<?php echo $comment['id'] ?>" /><br />
+<input type="hidden" name="comments/entry_id/<?php echo $comment['id'] ?>"" value="<?php echo $comment['entry_id'] ?>" /><br />
+<?php endforeach ?>
+
+<!--+ New Comment<br>
+<label>Subject</label><br />
+<input type="text" name="comments/subject/temp1" value="" /><br />
+<label>Body</label><br />
+<textarea name="comments/body/temp1"></textarea><br />
+<input type="hidden" name="comments/entry_id/temp1" value="1" /><br />
+-->
+
+<h2>Crankies</h2>
+<?php foreach($entry['crankies'] as $cranky) : ?>
+<label>Subject</label><br />
+<input type="text" name="crankies/subject/<?php echo $cranky['id'] ?>" value="<?php echo $cranky['subject'] ?>" /><br />
+<label>Body</label><br />
+<textarea name="crankies/body/<?php echo $cranky['id'] ?>"><?php echo $cranky['body'] ?></textarea><br />
+<input type="hidden" name="crankies/id/<?php echo $cranky['id'] ?>"" value="<?php echo $cranky['id'] ?>" /><br />
+<input type="hidden" name="crankies/entry_id/<?php echo $cranky['id'] ?>"" value="<?php echo $cranky['entry_id'] ?>" /><br />
+<?php endforeach ?>
+
+<!--+ New Cranky<br>
+<label>Subject</label><br />
+<input type="text" name="crankies/subject/temp1" value="" /><br />
+<label>Body</label><br />
+<textarea name="crankies/body/temp1"></textarea><br />
+<input type="hidden" name="crankies/entry_id/temp1" value="1" /><br />
+-->
+
+<input type="submit" />
+</form>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div style="margin-bottom:10px;padding:10px;background-color:#999;"><a href="<?php echo $BASEURL ?>entries/show_index">Backend</a></div>
+
+<?php if ($dialog) : ?>
+<div style="background-color:#fff6bf;border:1px solid #ff3;margin-bottom:5px;padding:10px;">
+<?php echo $dialog ?>
+</div>
+<?php endif; ?>
+
+<?php echo $content_for_layout ?>
+
+</body>
+</html>

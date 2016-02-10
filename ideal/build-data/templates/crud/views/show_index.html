@@ -1,0 +1,8 @@
+<a href="<?php echo $BASEURL . '__CONTROLLER_NAME_LOWER_CASE__/create___MODEL_NAME_LOWER_CASE__' ?>">+ new __MODEL_NAME_LOWER_CASE__</a><br /><br />
+
+Here is a list of __CONTROLLER_NAME_LOWER_CASE__:
+<ul>
+<?php foreach ($__CONTROLLER_NAME_LOWER_CASE__ as $k => $v) : ?>
+  <li><a href="<?php echo $BASEURL . '__CONTROLLER_NAME_LOWER_CASE__/update___MODEL_NAME_LOWER_CASE__/' . $v['id'] ?>"><?php echo $v['subject'] ?></a> | <a href="<?php echo $BASEURL . '__CONTROLLER_NAME_LOWER_CASE__/update___MODEL_NAME_LOWER_CASE__/' . $v['id'] ?>">update</a> | <a href="<?php echo $BASEURL . '__CONTROLLER_NAME_LOWER_CASE__/read___MODEL_NAME_LOWER_CASE__/' . $v['id'] ?>">read</a> | <a href="<?php echo $BASEURL . '__CONTROLLER_NAME_LOWER_CASE__/delete___MODEL_NAME_LOWER_CASE__/' . $v['id'] ?>">delete</a></li>
+<?php endforeach ?>
+</ul>
