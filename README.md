@@ -6,4 +6,4 @@ Another approach at the tiny web framework scene.
 MIT (Please check LICENSE file for license information.)
 
 ## Goal
-To have a small-footprint framework that allows me to create, read, update, and delete in a compact fashion.
+Build a small-footprint framework that allows one to create, read, update, and delete in a compact fashion.
