@@ -1,0 +1,9 @@
+<h3>Update Example</h3>
+<form method="post" action="<?php echo $action ?>">
+<label>Subject</label><br />
+<input type="text" name="subject" value="<?php echo $example['subject'] ?>" /><br />
+<label>Body</label><br />
+<textarea name="body"><?php echo $example['body'] ?></textarea><br />
+<input type="hidden" name="id" value="<?php echo $example['id'] ?>" />
+<input type="submit" />
+</form>
