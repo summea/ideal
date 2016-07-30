@@ -1,0 +1,8 @@
+<a href="<?php echo $BASEURL . 'examples/create_example' ?>">+ new example</a><br /><br />
+
+Here is a list of examples:
+<ul>
+<?php foreach ($examples as $k => $v) : ?>
+  <li><a href="<?php echo $BASEURL . 'examples/update_example/' . $v['id'] ?>"><?php echo $v['subject'] ?></a> | <a href="<?php echo $BASEURL . 'examples/update_example/' . $v['id'] ?>">update</a> | <a href="<?php echo $BASEURL . 'examples/read_example/' . $v['id'] ?>">read</a> | <a href="<?php echo $BASEURL . 'examples/delete_example/' . $v['id'] ?>">delete</a></li>
+<?php endforeach ?>
+</ul>
