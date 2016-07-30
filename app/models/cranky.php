@@ -1,9 +1,9 @@
 <?php
-class Cranky extends Model
+class Example extends Model
 {
-  public $table = 'crankies';
+  public $table = 'example';
 
-  public function getAllCrankies()
+  public function getAllExamples()
   {
     return $this->find('all', array(
       'fields' => '*',
@@ -12,7 +12,7 @@ class Cranky extends Model
     ));
   }
 
-  public function getCranky($id)
+  public function getExample($id)
   {
     return $this->find('first', array(
       'fields' => '*',
